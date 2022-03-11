@@ -1,0 +1,7 @@
+{
+  "name": "pdf-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "MaykerHM <hydeki8@gmail.com>",
+  "license": "MIT"
+}
