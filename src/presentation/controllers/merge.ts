@@ -1,8 +1,10 @@
 export class MergeController {
   handle(httpRequest: any): any {
-    return {
-      statusCode: 400,
-      body: new Error('Missing files'),
+    if (httpRequest.files.length === 0) {
+      return {
+        statusCode: 400,
+        body: new Error('Missing files'),
+      }
     }
   }
 }
