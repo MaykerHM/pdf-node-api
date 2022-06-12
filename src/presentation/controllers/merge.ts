@@ -1,5 +1,7 @@
+import { HttpResponse, HttpRequest } from '../protocols/http'
+
 export class MergeController {
-  handle(httpRequest: any): any {
+  handle(httpRequest: HttpRequest): HttpResponse {
     const files = httpRequest.files
     if (files.length === 0) {
       return {
