@@ -1,5 +1,7 @@
 import { MergeController } from './merge'
 import { Blob } from 'node:buffer'
+import { MissingFilesError } from '../erros/missing-files-error'
+import { FileTypeError } from '../erros/file-type-error'
 
 describe('Merge Controller', () => {
   test('Should return 400 if no files is provided', () => {
@@ -10,7 +12,7 @@ describe('Merge Controller', () => {
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual(new Error('Missing files'))
+    expect(httpResponse.body).toEqual(new MissingFilesError())
   })
   test('Should return 415 if non-pdf file is provided', () => {
     const sut = new MergeController()
@@ -22,6 +24,6 @@ describe('Merge Controller', () => {
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(415)
-    expect(httpResponse.body).toEqual(new Error('Wrong file type'))
+    expect(httpResponse.body).toEqual(new FileTypeError())
   })
 })

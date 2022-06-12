@@ -1,4 +1,6 @@
 import { HttpResponse, HttpRequest } from '../protocols/http'
+import { FileTypeError } from '../erros/file-type-error'
+import { MissingFilesError } from '../erros/missing-files-error'
 
 export class MergeController {
   handle(httpRequest: HttpRequest): HttpResponse {
@@ -6,7 +8,7 @@ export class MergeController {
     if (files.length === 0) {
       return {
         statusCode: 400,
-        body: new Error('Missing files'),
+        body: new MissingFilesError(),
       }
     }
     const isAllPdfTypeFiles = files.reduce((accumulator, file) => {
@@ -16,7 +18,7 @@ export class MergeController {
       console.log(files)
       return {
         statusCode: 415,
-        body: new Error('Wrong file type'),
+        body: new FileTypeError(),
       }
     }
   }
