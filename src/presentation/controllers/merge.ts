@@ -15,7 +15,6 @@ export class MergeController implements Controller {
       return accumulator && file.type === 'application/pdf'
     }, true)
     if (!isAllPdfTypeFiles) {
-      console.log(files)
       return unsupportedMediaType(new FileTypeError())
     }
   }
