@@ -3,8 +3,9 @@ import { FileTypeError } from '../erros/file-type-error'
 import { MissingFilesError } from '../erros/missing-files-error'
 import { badRequest } from '../helpers/http-helper'
 import { unsupportedMediaType } from '../helpers/http-helper'
+import { Controller } from '../protocols/controller'
 
-export class MergeController {
+export class MergeController implements Controller {
   handle(httpRequest: HttpRequest): HttpResponse {
     const files = httpRequest.files
     if (files.length === 0) {
