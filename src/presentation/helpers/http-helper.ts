@@ -9,3 +9,8 @@ export const unsupportedMediaType = (error: Error): HttpResponse => ({
   statusCode: 415,
   body: error,
 })
+
+export const emptyFile = (): HttpResponse => ({
+  statusCode: 200,
+  body: 'Empty file',
+})
