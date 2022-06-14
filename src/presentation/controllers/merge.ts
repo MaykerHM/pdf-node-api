@@ -1,6 +1,6 @@
 import { HttpResponse, HttpRequest } from '../protocols/http'
-import { FileTypeError } from '../erros/file-type-error'
-import { MissingFilesError } from '../erros/missing-files-error'
+import { FileTypeError } from '../errors/file-type-error'
+import { MissingFilesError } from '../errors/missing-files-error'
 import { badRequest, emptyFile } from '../helpers/http-helper'
 import { unsupportedMediaType } from '../helpers/http-helper'
 import { Controller } from '../protocols/controller'
