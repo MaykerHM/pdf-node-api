@@ -46,7 +46,7 @@ describe('Merge Controller', () => {
     expect(httpResponse.statusCode).toBe(415)
     expect(httpResponse.body).toEqual(new FileTypeError())
   })
-  test('Should return 200 if merged pdf is empty', () => {
+  test('Should return 200 and a warning message if merged pdf is empty', () => {
     const { sut, pdfEditorStub } = makeSut()
     jest.spyOn(pdfEditorStub, 'merge').mockReturnValueOnce(new Uint8Array([]))
     const blob1 = new Blob([''], { type: 'application/pdf' })
