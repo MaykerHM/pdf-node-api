@@ -59,4 +59,16 @@ describe('Merge Controller', () => {
     expect(httpResponse.statusCode).toBe(200)
     expect(httpResponse.body).toEqual('Empty file')
   })
+  test('Should return 200 if merged pdf is not empty and a success', () => {
+    const { sut } = makeSut()
+    const blob1 = new Blob(['x'], { type: 'application/pdf' })
+    const blob2 = new Blob(['y'], { type: 'application/pdf' })
+    const httpRequest = {
+      files: [blob1, blob2],
+      body: {},
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(200)
+    expect(httpResponse.body).toEqual('Empty file')
+  })
 })
