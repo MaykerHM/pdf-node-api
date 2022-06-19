@@ -69,6 +69,5 @@ describe('Merge Controller', () => {
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(200)
-    expect(httpResponse.body).toEqual('Empty file')
   })
 })
