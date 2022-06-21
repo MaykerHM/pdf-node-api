@@ -14,3 +14,8 @@ export const emptyFile = (): HttpResponse => ({
   statusCode: 200,
   body: 'Empty file',
 })
+
+export const success = (): HttpResponse => ({
+  statusCode: 200,
+  body: 'Successfully merged pdf files',
+})

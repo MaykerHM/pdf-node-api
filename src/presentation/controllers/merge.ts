@@ -1,7 +1,7 @@
 import { HttpResponse, HttpRequest } from '../protocols/http'
 import { FileTypeError } from '../errors/file-type-error'
 import { MissingFilesError } from '../errors/missing-files-error'
-import { badRequest, emptyFile } from '../helpers/http-helper'
+import { badRequest, emptyFile, success } from '../helpers/http-helper'
 import { unsupportedMediaType } from '../helpers/http-helper'
 import { Controller } from '../protocols/controller'
 import { PdfEditor } from '../protocols/pdf-editor'
@@ -28,5 +28,6 @@ export class MergeController implements Controller {
     if (mergedPdfFile.length === 0) {
       return emptyFile()
     }
+    return success()
   }
 }
