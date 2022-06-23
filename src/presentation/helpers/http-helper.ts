@@ -10,12 +10,10 @@ export const unsupportedMediaType = (error: Error): HttpResponse => ({
   body: error,
 })
 
-export const emptyFile = (): HttpResponse => ({
+export const ok = (message: string, content?: any): HttpResponse => ({
   statusCode: 200,
-  body: 'Empty file',
-})
-
-export const success = (): HttpResponse => ({
-  statusCode: 200,
-  body: 'Successfully merged pdf files',
+  body: {
+    message,
+    content,
+  },
 })

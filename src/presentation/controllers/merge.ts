@@ -1,7 +1,7 @@
 import { HttpResponse, HttpRequest } from '../protocols/http'
 import { FileTypeError } from '../errors/file-type-error'
 import { MissingFilesError } from '../errors/missing-files-error'
-import { badRequest, emptyFile, success } from '../helpers/http-helper'
+import { badRequest, ok } from '../helpers/http-helper'
 import { unsupportedMediaType } from '../helpers/http-helper'
 import { Controller } from '../protocols/controller'
 import { PdfEditor } from '../protocols/pdf-editor'
@@ -26,8 +26,8 @@ export class MergeController implements Controller {
     const filesPath = files.map((file) => file.path)
     const mergedPdfFile = this.pdfEditor.merge(filesPath)
     if (mergedPdfFile.length === 0) {
-      return emptyFile()
+      return ok('Empty file')
     }
-    return success()
+    return ok('Successfully merged pdf files', mergedPdfFile)
   }
 }
