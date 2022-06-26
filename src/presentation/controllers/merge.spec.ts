@@ -3,6 +3,7 @@ import { Blob } from 'node:buffer'
 import { MissingFilesError } from '../errors/missing-files-error'
 import { FileTypeError } from '../errors/file-type-error'
 import { PdfEditor } from '../protocols/pdf-editor'
+import { ServerError } from '../errors/server-error'
 
 interface SutTypes {
   sut: MergeController
@@ -70,5 +71,23 @@ describe('Merge Controller', () => {
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(200)
     expect(httpResponse.body.message).toEqual('Successfully merged pdf files')
+  })
+  test('Should return 500 if PdfEditor throws', () => {
+    class PdfEditorStub implements PdfEditor {
+      merge(filesPath: string[]): Uint8Array {
+        throw new Error()
+      }
+    }
+    const pdfEditorStub = new PdfEditorStub()
+    const sut = new MergeController(pdfEditorStub)
+    const blob1 = new Blob(['x'], { type: 'application/pdf' })
+    const blob2 = new Blob(['y'], { type: 'application/pdf' })
+    const httpRequest = {
+      files: [blob1, blob2],
+      body: {},
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body).toEqual(new ServerError())
   })
 })
