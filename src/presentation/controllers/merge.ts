@@ -1,5 +1,4 @@
-import { FileTypeError } from '../errors/file-type-error'
-import { MissingFilesError } from '../errors/missing-files-error'
+import { MissingFilesError, FileTypeError } from '../errors'
 import {
   badRequest,
   internalServerError,
