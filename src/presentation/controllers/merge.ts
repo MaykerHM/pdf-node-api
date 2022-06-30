@@ -1,11 +1,14 @@
-import { HttpResponse, HttpRequest } from '../protocols/http'
 import { FileTypeError } from '../errors/file-type-error'
 import { MissingFilesError } from '../errors/missing-files-error'
-import { badRequest, ok } from '../helpers/http-helper'
-import { unsupportedMediaType } from '../helpers/http-helper'
+import {
+  badRequest,
+  internalServerError,
+  ok,
+  unsupportedMediaType,
+} from '../helpers/http-helper'
 import { Controller } from '../protocols/controller'
+import { HttpRequest, HttpResponse } from '../protocols/http'
 import { PdfEditor } from '../protocols/pdf-editor'
-import { ServerError } from '../errors/server-error'
 
 export class MergeController implements Controller {
   private readonly pdfEditor: PdfEditor
@@ -32,10 +35,7 @@ export class MergeController implements Controller {
       }
       return ok('Successfully merged pdf files', mergedPdfFile)
     } catch (error) {
-      return {
-        statusCode: 500,
-        body: new ServerError(),
-      }
+      return internalServerError()
     }
   }
 }
