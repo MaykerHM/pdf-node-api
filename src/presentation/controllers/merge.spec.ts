@@ -16,15 +16,6 @@ const makePdfEditor = (): PdfEditor => {
   return new PdfEditorStub()
 }
 
-const makePdfEditorWithError = (): PdfEditor => {
-  class PdfEditorStub implements PdfEditor {
-    merge(filesPath: string[]): Uint8Array {
-      throw new Error()
-    }
-  }
-  return new PdfEditorStub()
-}
-
 const makeSut = (): SutTypes => {
   const pdfEditorStub = makePdfEditor()
   const sut = new MergeController(pdfEditorStub)
@@ -83,8 +74,10 @@ describe('Merge Controller', () => {
     expect(httpResponse.body.message).toEqual('Successfully merged pdf files')
   })
   test('Should return 500 if PdfEditor throws', () => {
-    const pdfEditorStub = makePdfEditorWithError()
-    const sut = new MergeController(pdfEditorStub)
+    const { sut, pdfEditorStub } = makeSut()
+    jest.spyOn(pdfEditorStub, 'merge').mockImplementationOnce(() => {
+      throw new Error()
+    })
     const blob1 = new Blob(['x'], { type: 'application/pdf' })
     const blob2 = new Blob(['y'], { type: 'application/pdf' })
     const httpRequest = {
