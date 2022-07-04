@@ -7,14 +7,26 @@ interface SutTypes {
   sut: MergeController
   pdfEditorStub: PdfEditor
 }
-
-const makeSut = (): SutTypes => {
+const makePdfEditor = (): PdfEditor => {
   class PdfEditorStub implements PdfEditor {
     merge(filesPath: string[]): Uint8Array {
       return new Uint8Array([255])
     }
   }
-  const pdfEditorStub = new PdfEditorStub()
+  return new PdfEditorStub()
+}
+
+const makePdfEditorWithError = (): PdfEditor => {
+  class PdfEditorStub implements PdfEditor {
+    merge(filesPath: string[]): Uint8Array {
+      throw new Error()
+    }
+  }
+  return new PdfEditorStub()
+}
+
+const makeSut = (): SutTypes => {
+  const pdfEditorStub = makePdfEditor()
   const sut = new MergeController(pdfEditorStub)
   return {
     sut,
@@ -71,12 +83,7 @@ describe('Merge Controller', () => {
     expect(httpResponse.body.message).toEqual('Successfully merged pdf files')
   })
   test('Should return 500 if PdfEditor throws', () => {
-    class PdfEditorStub implements PdfEditor {
-      merge(filesPath: string[]): Uint8Array {
-        throw new Error()
-      }
-    }
-    const pdfEditorStub = new PdfEditorStub()
+    const pdfEditorStub = makePdfEditorWithError()
     const sut = new MergeController(pdfEditorStub)
     const blob1 = new Blob(['x'], { type: 'application/pdf' })
     const blob2 = new Blob(['y'], { type: 'application/pdf' })
