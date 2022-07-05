@@ -1,7 +1,7 @@
 import { MergeController } from './merge'
 import { Blob } from 'node:buffer'
 import { MissingFilesError, FileTypeError, ServerError } from '../errors'
-import { PdfEditor } from '../protocols'
+import { PdfEditor } from '../../domain/usecases/pdf-editor'
 
 interface SutTypes {
   sut: MergeController
