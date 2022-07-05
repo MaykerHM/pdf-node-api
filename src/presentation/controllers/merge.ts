@@ -27,7 +27,7 @@ export class MergeController implements Controller {
       if (!isAllPdfTypeFiles) {
         return unsupportedMediaType(new FileTypeError())
       }
-      const filesPaths = files.map((file) => file.path)
+      const filesPaths: string[] = files.map((file) => file.path)
       const mergedPdfFile = this.pdfEditor.merge(filesPaths)
       if (mergedPdfFile.length === 0) {
         return ok('Empty file')
