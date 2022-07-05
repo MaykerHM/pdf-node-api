@@ -1,13 +1,12 @@
-import { PdfEditor } from '../../domain/usecases/pdf-editor'
-import { MissingFilesError, FileTypeError } from '../errors'
+import { PdfEditor } from './merge-protocols'
+import { Controller, HttpRequest, HttpResponse } from '../../protocols'
+import { MissingFilesError, FileTypeError } from '../../errors'
 import {
   badRequest,
   internalServerError,
   ok,
   unsupportedMediaType,
-} from '../helpers/http-helper'
-import { Controller } from '../protocols/controller'
-import { HttpRequest, HttpResponse } from '../protocols/http'
+} from '../../helpers/http-helper'
 
 export class MergeController implements Controller {
   private readonly pdfEditor: PdfEditor
