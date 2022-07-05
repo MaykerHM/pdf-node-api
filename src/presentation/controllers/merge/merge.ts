@@ -14,7 +14,7 @@ export class MergeController implements Controller {
     this.pdfEditor = pdfEditor
   }
 
-  handle(httpRequest: HttpRequest): HttpResponse {
+  async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const files = httpRequest.files
       if (files.length === 0) {
@@ -27,7 +27,7 @@ export class MergeController implements Controller {
         return unsupportedMediaType(new FileTypeError())
       }
       const filesPaths: string[] = files.map((file) => file.path)
-      const mergedPdfFile = this.pdfEditor.merge(filesPaths)
+      const mergedPdfFile = await this.pdfEditor.merge(filesPaths)
       if (mergedPdfFile.length === 0) {
         return ok('Empty file')
       }
