@@ -33,6 +33,7 @@ export class MergeController implements Controller {
       }
       return ok('Successfully merged pdf files', mergedPdfFile)
     } catch (error) {
+      console.log(error)
       return internalServerError()
     }
   }
